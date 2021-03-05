@@ -68,7 +68,7 @@ export default class RecieverDetails extends React.Component {
       message: this.state.username + " has shown interested in donating " + this.state.bookName + "."
     })
   }
-  updateBookStatus = () => {
+  updateStatus = () => {
     db.collection("All_Donations").add({
       book_name: this.state.bookName,
       request_id: this.state.requestID,
@@ -113,7 +113,7 @@ export default class RecieverDetails extends React.Component {
             {this.state.recieverID != this.state.userId ? (
                 <TouchableOpacity onPress={() => {
                   this.notification()
-                  this.updateBookStatus()
+                  this.updateStatus()
                   this.props.navigation.navigate("Donations")
                 }} style={styles.button}>
                     <Text style={styles.text}>I want to donate!</Text>
