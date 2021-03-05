@@ -47,7 +47,7 @@ export default class NotificationScreen extends React.Component {
               <Flatlist 
                 data={this.state.notification}
                 renderItem={this.renderItem}
-                keyExtractor={this.keyExtractor}
+                keyExtractor={(item,index) => index.toString()}
             />
             )}
         </View>
