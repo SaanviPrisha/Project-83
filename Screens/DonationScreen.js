@@ -44,6 +44,39 @@ export default class DonationScreen extends React.Component {
     this.getAllDonations()
     this.getDonorDetails()
   }
+  sendBook = (item) => {
+    var status = ""
+    if(item.request_status == "Book Sent") {
+      status = "Donor Interested"
+      db.collection("All_Donations").doc(item.Doc_Id).update({
+        request_status: status
+      })
+    } else {
+      status = "Book Sent"
+      db.collection("All_Donations").doc(item.Doc_Id).update({
+        request_status: status
+      })
+    }
+    this.sendNotification(item,status)
+  }
+  sendNotification = (item,status) => {
+    db.collection("All_Notifications").where("request_id","==",item.request_id).where("donor_id","==",item.donor_id).get()
+    .then((snapshot) => {
+      snapshot.forEach(doc => {
+        var message = ""
+        if(status == "Book Sent") {
+          message = this.state.donorName + " has sent you " + item.book_name + "."
+        } else {
+          message = this.state.donorName + " has shown interested in donating " + item.book_name + "."
+        }
+        db.collection("All_Notifications").doc(doc.id).update({
+          message: message,
+          notification_status: "unread",
+          date: firebase.firestore.FieldValue.serverTimestamp()
+        })
+      })
+    })
+  }
   renderItem = ({item, i}) => (
     <ListItem 
       key={i}
