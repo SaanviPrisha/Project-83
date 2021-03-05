@@ -8,6 +8,7 @@ import HomeScreen from './Screens/HomeScreen'
 import SettingScreen from './Screens/SettingScreen'
 import DonationDetails from './Screens/DetailsScreen'
 import MyDonations from './Screens/DonationScreen'
+import Notification from './Screens/Notification'
 
 
 export default class App extends React.Component {
@@ -51,6 +52,7 @@ const Drawer = createDrawerNavigator({
     Home: {screen: Tab},
     Settings: { screen: SettingScreen },
     Donations: { screen: MyDonations },
+    Notification: { screen: Notification },
 },{
   contentComponent: Sidebar
   },{
